@@ -64,13 +64,13 @@ function startTimer(targetTime, display) {
 
 window.onload = function () {
     var targetTime = new Date();
-    targetTime.setHours(22, 30, 0, 0); // Set target time to 5:00 PM (17:00)
+    targetTime.setHours(10, 30, 0, 0); // Set target time to 5:00 PM (17:00)
     var display = document.querySelector('#time');
     startTimer(targetTime, display);
 };
 </script>
 <body>
-  <div>Time left <span id="time">22:30:00</span></div>
+  <div>Time left <span id="time">10:30:00</span></div>
 </body>
 </html>
 """
@@ -91,8 +91,6 @@ authenticator = stauth.Authenticate(
 )
 
 name, authentication_status, username = authenticator.login('Login', 'main')
-if st.button('Register'):
-            switch_page('winners')
 if authentication_status:
     st.write(f'Welcome *{name}*')
     authenticator.logout('Logout', 'main')
@@ -126,9 +124,8 @@ if authentication_status:
             leaderboard = leaderboard.sort_values(by='Score', ascending=False).reset_index(drop=True)
             leaderboard.to_csv('leaderboard.csv', index=False)
             st.table(leaderboard)
-    if current_hour >= 22 and current_minute >= 30:
-        if st.button('Find out who the winners are!'):
-            switch_page('winners')
+    if current_hour >= 10 and current_minute >= 30:
+        switch_page('winners')
 
 elif authentication_status == False:
     st.error('Username/password is incorrect')
