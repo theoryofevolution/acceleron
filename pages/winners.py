@@ -21,5 +21,7 @@ top_teams = data.nlargest(3, 'Score', keep='all')
 print(top_teams['Team'][0])
 
 st.subheader(f"Winner: {top_teams['Team'][0]}")
-st.subheader(f"Runner Up: {top_teams['Team'][1]}")
-st.subheader(f"Third Place: {top_teams['Team'][2]}")
+if 1 in top_teams.index:
+    st.subheader(f"Runner Up: {top_teams['Team'][1]}")
+if 2 in top_teams.index:
+    st.subheader(f"Third Place: {top_teams['Team'][2]}")
