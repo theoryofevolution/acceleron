@@ -114,7 +114,7 @@ if authentication_status:
         leaderboard = leaderboard.append(new_row, ignore_index=True)
         leaderboard = leaderboard.sort_values('Score', ascending=False).groupby('Team').first().reset_index()
         leaderboard.to_csv('leaderboard.csv', index=False)
-        top_teams = leaderboard.nlargest('Score', keep='all')
+        top_teams = leaderboard.nlargest(3, 'Score', keep='all')
         st.table(top_teams)
     if current_hour >= 22 and current_minute >= 30:
         if st.button('Find out who the winners are!'):
