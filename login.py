@@ -24,7 +24,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-def get_data():
+def get_data(): 
         return pd.read_csv('leaderboard.csv')
 
 timer = """
@@ -91,7 +91,8 @@ authenticator = stauth.Authenticate(
 )
 
 name, authentication_status, username = authenticator.login('Login', 'main')
-
+if st.button('Register'):
+            switch_page('winners')
 if authentication_status:
     st.write(f'Welcome *{name}*')
     authenticator.logout('Logout', 'main')
@@ -101,7 +102,7 @@ if authentication_status:
     leaderboard = get_data()
     ground_truth = pd.read_csv('ground_truth.csv')['LABEL']
     with st.form("CSV_submission"):
-        uploaded_file = st.file_uploader("Choose a CSV", accept_multiple_files=False, type=['csv'])
+        uploaded_file = st.file_uploader("Choose your CSV submission", accept_multiple_files=False, type=['csv'])
         if uploaded_file is not None:
             if uploaded_file.type == "text/csv":
                 df = pd.read_csv(uploaded_file)['LABEL']
@@ -109,13 +110,22 @@ if authentication_status:
         current_hour = datetime.now().hour
         current_minute = datetime.now().minute
     if submitted:
-        model_score = accuracy_score(ground_truth, df)
-        new_row = {'Team': username, 'Score': model_score}
-        leaderboard = leaderboard.append(new_row, ignore_index=True)
-        leaderboard = leaderboard.sort_values('Score', ascending=False).groupby('Team').first().reset_index()
-        leaderboard.to_csv('leaderboard.csv', index=False)
-        top_teams = leaderboard.nlargest(3, 'Score', keep='all')
-        st.table(top_teams)
+        if uploaded_file is None:
+            st.warning("You must submit a CSV file!")
+        else:
+            model_score = accuracy_score(ground_truth, df)
+            user_row = pd.Series([model_score, username], index=leaderboard.columns)
+
+            if username in leaderboard['Team'].values:
+                leaderboard.loc[leaderboard['Team'] == username, 'Score'] = model_score
+                leaderboard.loc[leaderboard['Team'] == username, 'Team'] = username
+            else:
+                leaderboard = leaderboard.append(user_row, ignore_index=True)
+
+            # Sorting the dataframe by Score in descending order
+            leaderboard = leaderboard.sort_values(by='Score', ascending=False).reset_index(drop=True)
+            leaderboard.to_csv('leaderboard.csv', index=False)
+            st.table(leaderboard)
     if current_hour >= 22 and current_minute >= 30:
         if st.button('Find out who the winners are!'):
             switch_page('winners')
