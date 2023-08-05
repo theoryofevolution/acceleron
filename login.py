@@ -64,13 +64,13 @@ function startTimer(targetTime, display) {
 
 window.onload = function () {
     var targetTime = new Date();
-    targetTime.setHours(10, 33, 0, 0); // Set target time to 5:00 PM (17:00)
+    targetTime.setHours(17, 0, 0, 0); // Set target time to 5:00 PM (17:00)
     var display = document.querySelector('#time');
     startTimer(targetTime, display);
 };
 </script>
 <body>
-  <div>Time left <span id="time">10:33:00</span></div>
+  <div>Time left <span id="time">17:00:00</span></div>
 </body>
 </html>
 """
@@ -107,7 +107,7 @@ if authentication_status:
         submitted = st.form_submit_button("Submit", type='primary')
         current_hour = datetime.now().hour
         current_minute = datetime.now().minute
-    if current_hour >= 10 and current_minute >= 33:
+    if current_hour >= 17 and current_minute >= 0:
         submitted = False
         if st.button('The results are out!'):
             switch_page('winners')
