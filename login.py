@@ -9,7 +9,6 @@ from yaml.loader import SafeLoader
 from streamlit.components.v1 import html
 from datetime import datetime
 from streamlit_extras.switch_page_button import switch_page
-from streamlit_js_eval import streamlit_js_eval
 
 
 
