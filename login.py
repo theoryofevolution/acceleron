@@ -121,22 +121,22 @@ if authentication_status:
         pass
     with website:
         hasClicked = card(
-        title="Hello World!",
+        title="Sponsor Info Card 1",
         text="Some description",
         image="http://placekitten.com/200/300",
         url="https://github.com/gamcoh/st-card"
         )
     with other:
         hasClicked = card(
-        title="Hello World!",
+        title="Sponsor Info Card 2",
         text="Some other description",
         image="http://placekitten.com/200/300",
         url="https://github.com/gamcoh/st-card"
         )
     with other1:
         hasClicked = card(
-        title="Hello World!",
-        text="Some other OTHER description",
+        title="Sponsor Info Card 3",
+        text="Some other OTHER description. You can create more or less cards.",
         image="http://placekitten.com/200/300",
         url="https://github.com/gamcoh/st-card"
         )
