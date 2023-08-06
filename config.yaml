@@ -12,14 +12,10 @@ credentials:
       email: rbriggs@gmail.com
       name: Rebecca Briggs
       password: def
-    yashk:
-      email: yash.sharma.now@gmail.com
-      name: yash sharma
-      password: $2b$12$G9gdmWvOsbKOMhBrdJy8IumwoUdMZFx1B7aQgqPjb8raSaTJP55CS
     yashs:
       email: yash.sharma.now@gmail.com
       name: Yash Sharma
-      password: $2b$12$Tv.PysvK8YxpPlJeA86SOe2R/bbP6MuZ5FNziBW4bpfKgPB1RLZsG
+      password: $2b$12$x1SehpcRhnthLGlRloDf/OPJVP1XaYci7iynbVI1wi1Lz1wwaQ1ea
 preauthorized:
   emails:
-  - melsby@gmail.com
+  - yash.sharma.now@gmail.com
