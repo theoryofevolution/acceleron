@@ -176,7 +176,7 @@ if authentication_status:
         cs1, cs2 = st.columns(2)
         gt = pd.read_csv('ground_truth.csv')
         compd = pd.read_csv('iris_dataset.csv')
-        testd = pd.read_csv('test_csv')
+        testd = pd.read_csv('test.csv')
     
         csv = convert_df(gt)
         compd = convert_df(compd)
