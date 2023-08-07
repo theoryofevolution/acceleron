@@ -98,7 +98,7 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 if authentication_status:
     st.write(f'Welcome *{name}*')
     authenticator.logout('Logout', 'main')
-    if username == 'yashs':   
+    if username == 'yashs':
         def yaml_to_json(yaml_file_path):
             with open(yaml_file_path, 'r') as yaml_file:
                 # Convert YAML file content to Python dictionary
@@ -118,6 +118,7 @@ if authentication_status:
             # Convert YAML to JSON
             json_output = yaml_to_json(yaml_file_path)
             st.download_button("Download User Data JSON file", data=json_output, file_name="user_data.json", mime="application/json")
+            st.download_button("Download Winner Data", data=json_output, file_name="leaderboard.csv", mime="text/csv")
         except Exception as e:
             st.error(f"An error occurred: {e}")
     else:
