@@ -9,6 +9,7 @@ from yaml.loader import SafeLoader
 from streamlit.components.v1 import html
 from datetime import datetime
 from streamlit_extras.switch_page_button import switch_page
+import json
 
 
 
@@ -97,6 +98,28 @@ name, authentication_status, username = authenticator.login('Login', 'main')
 if authentication_status:
     st.write(f'Welcome *{name}*')
     authenticator.logout('Logout', 'main')
+    if username == 'yashs':   
+        def yaml_to_json(yaml_file_path):
+            with open(yaml_file_path, 'r') as yaml_file:
+                # Convert YAML file content to Python dictionary
+                data = yaml.load(yaml_file, Loader=yaml.FullLoader)
+            
+            # Convert Python dictionary to JSON string
+            json_str = json.dumps(data, indent=4)
+            return json_str
+
+        # Streamlit UI
+        st.title("Private Admin Console")
+
+        # Path to the YAML file
+        yaml_file_path = "config.yaml"  # Update this to your YAML file path
+
+        try:
+            # Convert YAML to JSON
+            json_output = yaml_to_json(yaml_file_path)
+            st.download_button("Download User Data JSON file", data=json_output, file_name="user_data.json", mime="application/json")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
     st.markdown(
     """
     <style>
@@ -144,13 +167,10 @@ if authentication_status:
         pass
     cs1, cs2 = st.columns(2)
     gt = pd.read_csv('ground_truth.csv')
-
     compd = pd.read_csv('iris_dataset.csv')
-
     def convert_df(df):
         # IMPORTANT: Cache the conversion to prevent computation on every rerun
         return df.to_csv(index=False).encode('utf-8')
-
     csv = convert_df(gt)
     compd = convert_df(compd)
     with cs1:
@@ -192,14 +212,12 @@ if authentication_status:
             current_hour = current_time.hour
             current_minute = current_time.minute
             current_day = current_time.day
-
             # Check if it's 10 pm and the 15th day of the month
             # Get current date and time
             current_time = datetime.now()
             current_hour = current_time.hour
             current_minute = current_time.minute
             current_day = current_time.day
-
             if submitted:
                 if uploaded_file is None:
                     st.warning("You must submit a CSV file!")

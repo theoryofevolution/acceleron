@@ -36,6 +36,8 @@ try:
         st.success('User registered successfully')
         with open('config.yaml', 'w') as file:
             yaml.dump(config, file, default_flow_style=False)
+        json_data = yaml.safe_load(config)
+        print(json_data)
         switch_page('login')
     st.subheader("or")
     if st.button('Login'):
