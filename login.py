@@ -29,6 +29,10 @@ st.markdown(
 def get_data(): 
         return pd.read_csv('leaderboard.csv')
 
+def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv(index=False).encode('utf-8')
+
 timer =  """
 <style>
     .centered-div {
@@ -119,6 +123,7 @@ if authentication_status:
             json_output = yaml_to_json(yaml_file_path)
             st.download_button("Download User Data JSON file", data=json_output, file_name="user_data.json", mime="application/json")
             leaderboard_data = pd.read_csv('leaderboard.csv')
+            leaderboard_data = convert_df(leaderboard_data)
             st.download_button("Download Winner Data", data=leaderboard_data, file_name="leaderboard.csv", mime="text/csv")
         except Exception as e:
             st.error(f"An error occurred: {e}")
@@ -171,9 +176,7 @@ if authentication_status:
         cs1, cs2 = st.columns(2)
         gt = pd.read_csv('ground_truth.csv')
         compd = pd.read_csv('iris_dataset.csv')
-        def convert_df(df):
-            # IMPORTANT: Cache the conversion to prevent computation on every rerun
-            return df.to_csv(index=False).encode('utf-8')
+    
         csv = convert_df(gt)
         compd = convert_df(compd)
         with cs1:
