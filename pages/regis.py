@@ -37,6 +37,9 @@ try:
         with open('config.yaml', 'w') as file:
             yaml.dump(config, file, default_flow_style=False)
         switch_page('login')
+    st.subheader("or")
+    if st.button('Login'):
+        switch_page('login')
 except Exception as e:
     st.error(e)
 
