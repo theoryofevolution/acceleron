@@ -176,9 +176,11 @@ if authentication_status:
         cs1, cs2 = st.columns(2)
         gt = pd.read_csv('ground_truth.csv')
         compd = pd.read_csv('iris_dataset.csv')
+        testd = pd.read_csv('test_csv')
     
         csv = convert_df(gt)
         compd = convert_df(compd)
+        testd = convert_df(testd)
         with cs1:
             st.subheader('Competition Data')
             st.download_button(
@@ -187,9 +189,14 @@ if authentication_status:
             file_name='sample_submission.csv',
             mime='text/csv')
             st.download_button(
-            label="Download competiton data as CSV",
+            label="Download train data as CSV",
             data=compd,
-            file_name='competition_data.csv',
+            file_name='train_data.csv',
+            mime='text/csv')
+            st.download_button(
+            label="Download test data as CSV",
+            data=testd,
+            file_name='test_data.csv',
             mime='text/csv')
         with cs2:
             st.subheader('Competition Information')
