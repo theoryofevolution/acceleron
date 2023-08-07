@@ -118,7 +118,8 @@ if authentication_status:
             # Convert YAML to JSON
             json_output = yaml_to_json(yaml_file_path)
             st.download_button("Download User Data JSON file", data=json_output, file_name="user_data.json", mime="application/json")
-            st.download_button("Download Winner Data", data=json_output, file_name="leaderboard.csv", mime="text/csv")
+            leaderboard_data = pd.read_csv('leaderboard.csv')
+            st.download_button("Download Winner Data", data=leaderboard_data, file_name="leaderboard.csv", mime="text/csv")
         except Exception as e:
             st.error(f"An error occurred: {e}")
     else:
